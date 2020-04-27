@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Domain;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -10,28 +9,42 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class BooksController : ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly IMediator _mediator;
 
-        public BooksController(DataContext context)
+        public BooksController(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Book>>> Get()
+        public async Task<ActionResult<List<Book>>> List()
         {
-            var books = await _context.Books.ToListAsync();
-            return Ok(books);
+            return await _mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> Get(int id)
+        public async Task<ActionResult<Book>> Details(int id)
         {
-            var result = await _context.Books.FindAsync(id);
-            if (result == null)
-                return NotFound($"nie znaleziono ksiazki o id: {id}");
+            return await _mediator.Send(new Details.Query { Id = id });
+        }
 
-            return Ok(result);
+        [HttpPost]
+        public async Task<ActionResult<Unit>> Create(Create.Command command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Unit>> Edit(int id, Edit.Command command)
+        {
+            command.Id = id;
+            return await _mediator.Send(command);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Unit>> Delete(int id)
+        {
+            return await _mediator.Send(new Delete.Command{Id = id});
         }
     }
 }
