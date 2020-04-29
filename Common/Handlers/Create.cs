@@ -12,7 +12,7 @@ namespace API
         {
             public string Title { get; set; }
             public string Author { get; set; }
-            public string BookType { get; set; }
+            public string Description { get; set; }
             public string Publisher { get; set; }
         }
 
@@ -31,14 +31,14 @@ namespace API
                 {
                     Title = request.Title,
                     Author = request.Author,
-                    BookType = request.BookType,
+                    Description = request.Description,
                     Publisher = request.Publisher
                 };
 
                 _context.Books.Add(book);
-                var succes = await _context.SaveChangesAsync() > 0;
+                var success = await _context.SaveChangesAsync() > 0;
                 
-                if (succes) return Unit.Value;
+                if (success) return Unit.Value;
 
                 throw new Exception("Can not add entity to db");                
             }

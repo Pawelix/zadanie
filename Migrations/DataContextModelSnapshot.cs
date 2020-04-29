@@ -24,7 +24,7 @@ namespace API.Migrations
                     b.Property<string>("Author")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("BookType")
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Publisher")

@@ -2,7 +2,7 @@
 
 namespace API.Migrations
 {
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace API.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(nullable: true),
                     Author = table.Column<string>(nullable: true),
-                    BookType = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     Publisher = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

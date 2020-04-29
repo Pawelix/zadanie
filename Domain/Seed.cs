@@ -17,7 +17,7 @@ namespace API.Domain
                         Id = 1,
                         Title = "somename",
                         Author = "zbiorowy",
-                        BookType = "naukowa",
+                        Description = "naukowa",
                         Publisher = "nowa era"
                     },
                     new Book
@@ -25,12 +25,12 @@ namespace API.Domain
                         Id = 2,
                         Title = "somename2",
                         Author = "zbiorowy",
-                        BookType = "naukowa",
+                        Description = "naukowa",
                         Publisher = "nowa era"
                     }
                 };
                 context.Books.AddRange(books);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
     }

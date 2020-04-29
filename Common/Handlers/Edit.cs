@@ -13,7 +13,7 @@ namespace API
             public int Id { get; set; }
             public string Title { get; set; }
             public string Author { get; set; }
-            public string BookType { get; set; }
+            public string Description { get; set; }
             public string Publisher { get; set; }
         }
 
@@ -35,7 +35,7 @@ namespace API
 
                 book.Title = request.Title ?? book.Title;
                 book.Author = request.Author ?? book.Author;
-                book.BookType = request.BookType ?? book.BookType;
+                book.Description = request.Description ?? book.Description;
                 book.Publisher = request.Publisher ?? book.Publisher;
 
                 var succes = await _context.SaveChangesAsync() > 0;
